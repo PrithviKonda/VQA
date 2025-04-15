@@ -1,0 +1,25 @@
+# Example configuration file for the VQA system
+vlm:
+  model_id: microsoft/Phi-4-multimodal-instruct
+  device: auto  # 'cpu', 'cuda', or 'auto'
+  max_new_tokens: 100
+  temperature: 0.7
+
+data:
+  raw_dir: data/raw
+  processed_dir: data/processed
+  synthetic_dir: data/synthetic
+
+api:
+  host: 0.0.0.0
+  port: 8000
+
+retriever:
+  top_k: 3
+  sources:
+    - wikipedia
+    - pubmed
+    - local
+
+cache:
+  redis_url: redis://localhost:6379/0

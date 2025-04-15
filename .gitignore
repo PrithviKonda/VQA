@@ -1,0 +1,7 @@
+# Specifies intentionally untracked files that Git should ignore
+__pycache__/
+*.pyc
+.env
+*.env
+.DS_Store
+data/

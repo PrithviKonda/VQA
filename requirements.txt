@@ -1,0 +1,16 @@
+fastapi
+uvicorn[standard]
+python-multipart
+Pillow
+# --- PyTorch Installation for Mac M1/CPU ---
+torch
+torchvision
+torchaudio
+
+# --- Hugging Face Transformers and dependencies ---
+transformers
+accelerate
+sentencepiece
+
+# --- Other ---
+requests
