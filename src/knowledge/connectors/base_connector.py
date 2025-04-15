@@ -1,7 +1,11 @@
-# src/knowledge/connectors/base_connector.py
 """
 Base connector for external knowledge sources.
+Phase 2: Placeholder.
 """
+
 class BaseConnector:
-    def retrieve(self, query):
-        raise NotImplementedError
+    """
+    Base class for knowledge connectors.
+    """
+    def query(self, query: str):
+        pass

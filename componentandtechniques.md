@@ -505,3 +505,4 @@ Works cited
                                  178. Defect Detection: Machine Vision Inspection - Elementary, accessed April 14, 2025, https://www.elementaryml.com/solutions/defect-detection
                                  179. Elevating Visual Inspection With AI and AR | PTC, accessed April 14, 2025, https://www.ptc.com/en/technologies/augmented-reality/inspection/visual-inspection
                                  180. Enhancing Maintenance Procedures with Augmented Reality - ViewAR, accessed April 14, 2025, https://www.viewar.com/blog/enhancing-maintenance-procedures-with-augmented-reality/
+                                 

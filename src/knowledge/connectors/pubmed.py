@@ -1,10 +1,13 @@
-# src/knowledge/connectors/pubmed.py
 """
-Example PubMed connector placeholder.
+PubMed connector for biomedical knowledge retrieval.
+Phase 2: Placeholder.
 """
+
 from .base_connector import BaseConnector
 
 class PubMedConnector(BaseConnector):
-    def retrieve(self, query):
-        # Implement PubMed API retrieval here
-        return []
+    """
+    Connector for querying PubMed.
+    """
+    def query(self, query: str):
+        pass

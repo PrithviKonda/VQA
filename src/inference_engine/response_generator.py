@@ -1,7 +1,11 @@
-# src/inference_engine/response_generator.py
 """
-Manages the multi-stage response process.
+Response generator for VQA answers.
+Phase 3: Placeholder.
 """
-def generate_response(*args, **kwargs):
-    # Placeholder for orchestration logic
-    return ""
+
+class ResponseGenerator:
+    """
+    Generates final VQA responses.
+    """
+    def generate(self, context, answer_candidates):
+        pass

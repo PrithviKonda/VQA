@@ -1,7 +1,11 @@
-# src/inference_engine/ranker.py
 """
-Logic for ranking/selecting candidate answers.
+Ranking module for candidate VQA answers.
+Phase 3: Placeholder.
 """
-def rank_candidates(candidates):
-    # Placeholder for ranking logic
-    return candidates[0] if candidates else None
+
+class Ranker:
+    """
+    Ranks answer candidates for VQA.
+    """
+    def rank(self, candidates):
+        pass

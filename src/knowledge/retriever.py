@@ -1,7 +1,11 @@
-# src/knowledge/retriever.py
 """
-Base retrieval logic (e.g., vector search placeholder).
+Knowledge retriever for external sources.
+Phase 2: Placeholder.
 """
-def retrieve(query):
-    # Placeholder for retrieval logic
-    return []
+
+class KnowledgeRetriever:
+    """
+    Retrieves relevant knowledge for VQA.
+    """
+    def retrieve(self, query: str):
+        pass

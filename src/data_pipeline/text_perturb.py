@@ -1,4 +1,10 @@
-# src/data_pipeline/text_perturb.py
 """
-Functions for text perturbation/augmentation placeholder.
+Text perturbation utilities for VQA.
+Phase 1: Placeholder.
 """
+
+def perturb_text(text: str) -> str:
+    """
+    Applies perturbation to text.
+    """
+    pass
