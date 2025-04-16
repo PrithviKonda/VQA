@@ -21,7 +21,7 @@ def test_vqa_endpoint(monkeypatch):
     from src.api.dependencies import get_vlm_service
     app.dependency_overrides[get_vlm_service] = lambda: DummyVLM()
     payload = {
-        "image_url": "[http://example.com/image.jpg",](http://example.com/image.jpg",)
+        "image_url": "http://example.com/image.jpg",
         "question": "What is in the image?"
     }
     response = client.post("/vqa", json=payload)

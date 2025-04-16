@@ -32,9 +32,3 @@ This repository implements a modular, extensible, and production-ready Multimoda
 - See `ProjectPlan.md`
 
 ---
-
-## Environment Setup Notes
-
-- This project uses [loguru](https://github.com/Delgan/loguru) for logging.
-- To install in your conda environment, run:
-`conda install -c conda-forge loguru`
