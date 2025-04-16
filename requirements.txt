@@ -23,6 +23,7 @@ Pillow
 transformers
 accelerate
 sentencepiece
+sentence-transformers
 
 # --- Data pipeline and augmentation ---
 albumentations
