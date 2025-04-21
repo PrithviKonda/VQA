@@ -1,0 +1,24 @@
+# Base configuration for Advanced Multimodal VQA System
+vlm:
+  model: "llava"  # Options: llava, blip2, phi4
+  device: "cuda"
+retrieval:
+  enable: true
+  method: "faiss"
+  knowledge_base: "wikipedia"
+data:
+  root: "./data"
+  synthetic: true
+  augmentations: true
+inference:
+  hybrid_strategy: true
+  token_reduction: true
+api:
+  host: "0.0.0.0"
+  port: 8000
+deployment:
+  container: true
+  scalable: true
+logging:
+  level: "INFO"
+  log_dir: "./logs"

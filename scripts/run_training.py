@@ -1,6 +1,13 @@
-# scripts/run_training.py
 """
-Script to train/fine-tune models placeholder.
+Script to run model training.
+Phase 1: Placeholder.
 """
+
+def main():
+    """
+    Entry point for training script.
+    """
+    pass
+
 if __name__ == "__main__":
-    print("Training script placeholder.")
+    main()

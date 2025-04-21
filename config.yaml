@@ -1,25 +1,18 @@
-# Example configuration file for the VQA system
-vlm:
-  model_id: microsoft/Phi-4-multimodal-instruct
-  device: auto  # 'cpu', 'cuda', or 'auto'
-  max_new_tokens: 100
-  temperature: 0.7
-
-data:
-  raw_dir: data/raw
-  processed_dir: data/processed
-  synthetic_dir: data/synthetic
+# Global configuration for VQA system
 
 api:
-  host: 0.0.0.0
+  host: "0.0.0.0"
   port: 8000
 
-retriever:
-  top_k: 3
-  sources:
-    - wikipedia
-    - pubmed
-    - local
+vlm:
+  model_name: "microsoft/phi-4"
+  device: "cpu"
 
-cache:
-  redis_url: redis://localhost:6379/0
+redis:
+  host: "localhost"
+  port: 6379
+  db: 0
+
+logging:
+  level: "INFO"
+  log_file: "logs/vqa.log"

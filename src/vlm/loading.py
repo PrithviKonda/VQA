@@ -1,25 +1,26 @@
-# src/vlm/loading.py
 """
-Handles loading of VLM models and processors.
+Model loading utilities for VLMs.
+Phase 0: Load Phi-4 model.
 """
-from transformers import AutoProcessor, Phi4MultimodalForConditionalGeneration
-import torch
-from src.utils.config_loader import load_config
 
-model = None
-processor = None
+from transformers import AutoModelForCausalLM, AutoTokenizer
+from typing import Tuple, Any
 
-def load_vlm_model():
-    global model, processor
-    config = load_config()
-    model_id = config['vlm']['model_id']
-    device = config['vlm']['device']
-    torch_dtype = torch.float16 if device == 'cuda' else torch.float32
-    processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
-    model = Phi4MultimodalForConditionalGeneration.from_pretrained(
-        model_id,
-        trust_remote_code=True,
-        torch_dtype=torch_dtype,
-    ).to(device)
-    model.eval()
-    return model, processor
+def load_phi4_model(model_name: str, device: str) -> Tuple[Any, Any]:
+    """
+    Loads the Phi-4 model and tokenizer.
+    """
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForCausalLM.from_pretrained(model_name)
+    model.to(device)
+    return model, tokenizer
+
+def load_vlm(model_name: str):
+    """
+    Load the requested VLM. Supports conditional loading of LLaVA-NeXT.
+    """
+    if model_name == "llava-next":
+        from src.vlm.wrappers.llava import LLaVAWrapper
+        return LLaVAWrapper()
+    # Add other VLMs as needed
+    return None

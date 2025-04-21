@@ -1,26 +1,34 @@
-# Advanced Multimodal VQA System
+# Advanced Multimodal Visual Question Answering (VQA) System
 
-This project implements a modular, scalable Visual Question Answering (VQA) system integrating state-of-the-art Vision-Language Models (VLMs), knowledge retrieval, synthetic data pipelines, and AR visualization.
+## Overview
 
-## Setup
-1. Install dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+This repository implements a modular, extensible, and production-ready Multimodal VQA system, integrating advanced Visual-Language Models (VLMs), knowledge retrieval, and continuous learning.
+
+## Directory Structure
+
+- `src/`: Core backend code (API, VLM, data pipeline, knowledge, inference engine, cache, utils)
+- `data/`: Raw, processed, and synthetic datasets
+- `notebooks/`: Prototyping and experiments
+- `scripts/`: Training, evaluation, and data generation scripts
+- `deployment/`: Docker, orchestration, and monitoring configs
+- `ar_frontend/`: Placeholder for AR-based frontend (Phase 6+)
+- `tests/`: Unit and integration tests
+
+## Quickstart
+
+1. Install dependencies: `pip install -r requirements.txt`
 2. Configure `config.yaml` as needed.
-3. Run the backend:
-   ```bash
-   uvicorn src.api.main:app --reload
-   ```
+3. Run the API: `uvicorn src.api.main:app --reload`
 
-## Project Structure
-See the tree in the project root for an overview of folders and files.
+## Phased Implementation
 
-## Usage
-- Use the FastAPI docs at `/docs` for API exploration.
-- Place data in the `data/` directory.
-- See `notebooks/` for experiments and visualization.
-- AR frontend is in `ar_frontend/`.
+- **Phase 0:** Core foundation, API, config, logging, caching, Phi-4 VLM integration
+- **Phase 1-7:** See `ProjectPlan.md` for details
 
-## Contributing
-Pull requests and issues are welcome!
+## References
+
+- See `Architecting an Advanced Multimodal Visual Question Answering System.md`
+- See `componentandtechniques.md`
+- See `ProjectPlan.md`
+
+---

@@ -1,16 +1,49 @@
+# Recommended: install most packages with conda for best compatibility on Mac (Apple Silicon/Intel)
+# This file is for pip fallback or CI. See README for conda install instructions.
+
+# --- Core API and utilities ---
 fastapi
-uvicorn[standard]
+uvicorn
+pydantic
 python-multipart
-Pillow
-# --- PyTorch Installation for Mac M1/CPU ---
+pyyaml
+redis
+requests
+httpx
+python-dotenv
+
+# --- ML/DL Core (install with conda if possible) ---
 torch
 torchvision
-torchaudio
+torchaudio # Use 'pip install torch torchvision torchaudio on Apple Silicon
+scikit-learn
+Pillow
 
-# --- Hugging Face Transformers and dependencies ---
+# --- Hugging Face ecosystem ---
 transformers
 accelerate
 sentencepiece
+sentence-transformers
 
-# --- Other ---
-requests
+# --- Data pipeline and augmentation ---
+albumentations
+faiss-cpu
+#opencv  # Use 'conda install -c conda-forge opencv' for best compatibility
+
+# --- Jupyter/Notebook ---
+jupyter
+notebook
+
+# --- Testing ---
+pytest
+pytest-cov
+
+# --- Utilities ---
+tqdm
+typing-extensions
+
+# --- (Optional) for production server ---
+uvicorn[standard]
+
+# --- Conceptual dependencies ---
+openai
