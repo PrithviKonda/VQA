@@ -23,3 +23,16 @@ retriever:
 
 cache:
   redis_url: redis://localhost:6379/0
+
+training:
+  epochs: 3
+  batch_size: 8
+  learning_rate: 5e-5
+  save_steps: 500
+  eval_steps: 500
+
+evaluation:
+  split: "val"
+  metrics:
+    - accuracy
+  dataset_path: data/vqa/val.json

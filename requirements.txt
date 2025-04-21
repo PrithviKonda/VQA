@@ -8,6 +8,8 @@ torchvision
 torchaudio
 
 # --- Hugging Face Transformers and dependencies ---
+evaluate
+scikit-learn
 transformers
 accelerate
 sentencepiece
