@@ -2,7 +2,7 @@
 """
 Handles loading of VLM models and processors.
 """
-from transformers import AutoProcessor, Phi4MultimodalForConditionalGeneration
+from transformers import AutoProcessor, AutoModelForVision2Seq
 import torch
 from src.utils.config_loader import load_config
 
@@ -16,7 +16,7 @@ def load_vlm_model():
     device = config['vlm']['device']
     torch_dtype = torch.float16 if device == 'cuda' else torch.float32
     processor = AutoProcessor.from_pretrained(model_id, trust_remote_code=True)
-    model = Phi4MultimodalForConditionalGeneration.from_pretrained(
+    model = AutoModelForVision2Seq.from_pretrained(
         model_id,
         trust_remote_code=True,
         torch_dtype=torch_dtype,
