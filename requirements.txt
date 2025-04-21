@@ -43,4 +43,7 @@ tqdm
 typing-extensions
 
 # --- (Optional) for production server ---
- uvicorn[standard]
+uvicorn[standard]
+
+# --- Conceptual dependencies ---
+openai

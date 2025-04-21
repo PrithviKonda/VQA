@@ -17,3 +17,14 @@ class LlavaWrapper:
         """
         # TODO: Implement LLaVA inference
         pass
+
+class LLaVAWrapper:
+    """
+    Placeholder wrapper for LLaVA-NeXT VLM inference.
+    """
+    def __init__(self, model_path: str = None):
+        self.model_path = model_path or "llava-next-stub"
+
+    def infer(self, question: str, image):
+        # Placeholder for LLaVA inference
+        return "LLaVA answer stub"

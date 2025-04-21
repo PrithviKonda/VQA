@@ -3,9 +3,16 @@ Base connector for external knowledge sources.
 Phase 2: Placeholder.
 """
 
-class BaseConnector:
+from abc import ABC, abstractmethod
+from typing import List
+
+class BaseKnowledgeConnector(ABC):
     """
-    Base class for knowledge connectors.
+    Abstract base class for external knowledge connectors.
     """
-    def query(self, query: str):
+    @abstractmethod
+    def search(self, query: str) -> List[str]:
+        """
+        Search the external knowledge source for relevant information.
+        """
         pass

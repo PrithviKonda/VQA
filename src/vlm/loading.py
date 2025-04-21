@@ -14,3 +14,13 @@ def load_phi4_model(model_name: str, device: str) -> Tuple[Any, Any]:
     model = AutoModelForCausalLM.from_pretrained(model_name)
     model.to(device)
     return model, tokenizer
+
+def load_vlm(model_name: str):
+    """
+    Load the requested VLM. Supports conditional loading of LLaVA-NeXT.
+    """
+    if model_name == "llava-next":
+        from src.vlm.wrappers.llava import LLaVAWrapper
+        return LLaVAWrapper()
+    # Add other VLMs as needed
+    return None

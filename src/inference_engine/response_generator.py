@@ -3,37 +3,56 @@ Response generator for VQA answers.
 Phase 3: Placeholder.
 """
 
-from typing import Optional, List, Any
+import logging
+from typing import Any, List, Dict
+from src.knowledge.planner import AdaptivePlanner, SubQuestion
+from src.knowledge.sebe_vqa import get_aligned_retriever, reselect_knowledge
+from src.inference_engine.ranker import AnswerRanker
+#from src.vlm.wrappers.llava import LLaVAWrapper  # Uncomment if LLaVA is enabled
 
 class ResponseGenerator:
     """
-    Generates final VQA responses. Supports optional RAG context.
+    Orchestrates the hybrid inference pipeline: planning, retrieval, VLM, connectors, SeBe-VQA, and ranking.
     """
-    def __init__(self, vlm: Any):
-        """
-        Args:
-            vlm: The underlying vision-language model or service.
-        """
-        self.vlm = vlm
+    def __init__(self, planner: AdaptivePlanner = None, ranker: AnswerRanker = None):
+        self.planner = planner or AdaptivePlanner()
+        self.ranker = ranker or AnswerRanker()
+        self.retriever = get_aligned_retriever()
+        # self.llava = LLaVAWrapper()  # Uncomment if LLaVA is enabled
 
-    def generate(self, question: str, image: Any = None, retrieved_context: Optional[str] = None, answer_candidates: Optional[List[str]] = None) -> str:
+    def generate_response(self, question: str, image: Any) -> Dict[str, Any]:
         """
-        Generate a VQA response, optionally using RAG context.
-        Args:
-            question: The user question.
-            image: The input image (optional).
-            retrieved_context: Context string from RAG (optional).
-            answer_candidates: Optional list of answer candidates.
-        Returns:
-            The generated answer string.
+        Main entry point for generating an answer to a VQA query.
         """
-        prompt = question
-        if retrieved_context:
-            prompt = f"{retrieved_context}\n"
-        # Call the underlying VLM model/service
-        # This is a placeholder; actual call may differ
-        try:
-            answer = self.vlm.generate(prompt=prompt, image=image, answer_candidates=answer_candidates)
-            return answer
-        except Exception as e:
-            raise RuntimeError(f"VQA generation failed: {e}")
+        logging.info(f"Generating response for question: {question}")
+        sub_questions = self.planner.decompose_question(question, image)
+        knowledge_candidates = []
+        for sq in sub_questions:
+            tool = self.planner.select_tool(sq)
+            if tool == "retriever":
+                knowledge = self.retriever(sq.text, image)
+            elif tool == "pubmed_connector":
+                from src.knowledge.connectors.pubmed import PubMedConnector
+                connector = PubMedConnector()
+                knowledge = connector.search(sq.text)
+            elif tool == "vlm":
+                # Placeholder: Call VLM (e.g., Phi-4 or LLaVA)
+                knowledge = ["VLM answer stub"]
+            else:
+                knowledge = ["Unknown tool"]
+            knowledge_candidates.extend(knowledge)
+
+        # SeBe-VQA: knowledge filtering/re-selection
+        filtered_candidates = reselect_knowledge(knowledge_candidates, question)
+
+        # Generate candidate answers (simulate multiple answers)
+        candidate_answers = [f"Answer based on: {kc}" for kc in filtered_candidates]
+
+        # Rank answers
+        ranked = self.ranker.rank_answers(question, image, candidate_answers)
+
+        return {
+            "answers": ranked,
+            "candidates": candidate_answers,
+            "knowledge": filtered_candidates
+        }

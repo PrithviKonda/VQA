@@ -5,6 +5,7 @@ Phase 0: Basic Phi-4 inference.
 
 from typing import Any
 from src.api.models import VQARequest
+from src.vlm.loading import load_vlm
 
 class Phi4VLMService:
     """
@@ -27,3 +28,12 @@ class Phi4VLMService:
         if "A:" in answer:
             answer = answer.split("A:")[-1].strip()
         return answer
+
+def infer_with_vlm(model_name: str, question: str, image):
+    """
+    Run inference using the specified VLM (e.g., LLaVA-NeXT).
+    """
+    vlm = load_vlm(model_name)
+    if vlm is not None:
+        return vlm.infer(question, image)
+    return "VLM inference not available"
