@@ -41,8 +41,8 @@ def main():
 
     # Load model and processor
     print("Loading model and processor...")
-    load_vlm_model()
-    assert model is not None and processor is not None, "Model or processor not loaded."
+    model_obj, processor_obj = load_vlm_model()
+    assert model_obj is not None and processor_obj is not None, "Model or processor not loaded."
 
     # Prepare TrainingArguments
     training_args = TrainingArguments(
@@ -50,8 +50,6 @@ def main():
         num_train_epochs=epochs,
         per_device_train_batch_size=batch_size,
         learning_rate=lr,
-        evaluation_strategy="steps",
-        save_strategy="epoch",
         logging_steps=50,
         save_total_limit=2,
         report_to="none",
@@ -65,10 +63,10 @@ def main():
 
     # Trainer
     trainer = Trainer(
-        model=model,
+        model=model_obj,
         args=training_args,
         train_dataset=train_dataset,
-        tokenizer=processor,
+        tokenizer=processor_obj,
         data_collator=data_collator,
     )
 
