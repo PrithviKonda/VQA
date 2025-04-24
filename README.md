@@ -1,12 +1,12 @@
 
-# Advanced Multimodal Visual Question Answering (VQA) System
+# Multimodal Visual Question Answering (VQA) System
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) <!-- Placeholder License Badge -->
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) 
 [![Python Version](https://img.shields.io/badge/python-3.10%2B-blue.svg)](https://www.python.org/) 
 
 ## Overview
 
-This project implements an advanced, multimodal Visual Question Answering (VQA) system designed to answer complex questions based on visual, textual, and potentially speech inputs. It integrates cutting-edge AI technologies, including state-of-the-art Vision-Language Models (VLMs), sophisticated knowledge retrieval mechanisms (mRAG), adaptive reasoning agents, robust data pipelines, and Augmented Reality (AR) integration.
+This project implements an advanced, multimodal Visual Question Answering (VQA) system designed to answer complex questions based on visual, textual, and potentially speech inputs. It integrates Vision-Language Models (VLMs), sophisticated knowledge retrieval mechanisms (mRAG), adaptive reasoning agents, robust data pipelines, and Augmented Reality (AR) integration.
 
 The system architecture emphasizes modularity and leverages techniques like contrastive alignment for retrieval (SeBe-VQA concept), adaptive planning (OmniSearch concept), multi-stage response generation, and continuous learning to provide accurate, reliable, and context-aware answers. It is designed to be adaptable for various domains, including healthcare and industrial inspection [cite: 267, 412-430].
 
@@ -34,24 +34,107 @@ The project follows a modular structure to separate concerns:
 ├── .gitignore
 ├── README.md
 ├── requirements.txt
-├── config.yaml          # Configuration file
+├── config.yaml
 │
-├── data/                # Data storage (raw, processed, synthetic)
-├── notebooks/           # Jupyter notebooks for exploration and testing
-├── src/                 # Main source code
-│   ├── api/             # FastAPI application (endpoints, models, dependencies)
-│   ├── cache/           # Caching implementation (Redis)
-│   ├── continuous_learning/ # Active learning and feedback logic
-│   ├── data_pipeline/   # Data loading, preprocessing, augmentation, synthetic data
-│   ├── inference_engine/ # Orchestrates response generation (candidates, ranking)
-│   ├── knowledge/       # RAG, Planner, Connectors, SeBe-VQA concepts
-│   ├── utils/           # Helper functions, logging, config loading
-│   └── vlm/             # VLM loading, inference, wrappers (Phi-4, LLaVA)
+├── data/
+│   ├── raw/
+│   ├── processed/
+│   └── synthetic/
 │
-├── scripts/             # Standalone scripts (training, evaluation, data generation)
-├── deployment/          # Dockerfiles, docker-compose, Triton repo, monitoring configs
-├── ar_frontend/         # React-based AR frontend code
-└── tests/               # Unit and integration tests
+├── notebooks/
+│   ├── 01_data_exploration.ipynb # Placeholder content ok
+│   ├── 02_model_testing.ipynb    # Placeholder content ok
+│   └── 03_rag_experiments.ipynb  # Placeholder content ok
+│
+├── src/
+│   ├── __init__.py
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── main.py           # Implement Phase 0 endpoint(s)
+│   │   ├── models.py         # Implement Phase 0 models
+│   │   └── dependencies.py   # Implement Phase 0 dependencies (e.g., get_redis_client, get_vlm_service)
+│   ├── vlm/
+│   │   ├── __init__.py
+│   │   ├── inference.py      # Implement basic Phase 0 inference for Phi-4
+│   │   ├── loading.py        # Implement Phase 0 loading for Phi-4
+│   │   └── wrappers/
+│   │       ├── __init__.py
+│   │       ├── phi4.py       # Define structure
+│   │       └── llava.py      # Placeholder structure for Phase 3
+│   ├── data_pipeline/        # Create files/structure for Phase 1
+│   │   ├── __init__.py
+│   │   ├── datasets.py       # Placeholder structure
+│   │   ├── preprocessing.py  # Placeholder structure
+│   │   ├── augmentation.py   # Placeholder structure
+│   │   ├── synthetic_data.py # Placeholder structure
+│   │   └── text_perturb.py   # Placeholder structure
+│   ├── knowledge/            # Create files/structure for Phase 2 & 3
+│   │   ├── __init__.py
+│   │   ├── retriever.py      # Placeholder structure
+│   │   ├── mrag.py           # Placeholder structure
+│   │   ├── sebe_vqa.py       # Placeholder structure
+│   │   ├── planner.py        # Placeholder structure
+│   │   └── connectors/
+│   │       ├── __init__.py
+│   │       ├── base_connector.py # Placeholder structure
+│   │       └── pubmed.py       # Placeholder structure
+│   ├── inference_engine/     # Create files/structure for Phase 3
+│   │   ├── __init__.py
+│   │   ├── response_generator.py # Placeholder structure
+│   │   └── ranker.py             # Placeholder structure
+│   ├── cache/
+│   │   ├── __init__.py
+│   │   └── redis_cache.py    # Implement Phase 0 caching functions
+│   ├── continuous_learning/  # Create files/structure for Phase 6
+│   │   ├── __init__.py
+│   │   ├── active_learner.py # Placeholder structure
+│   │   └── feedback.py       # Placeholder structure
+│   └── utils/
+│       ├── __init__.py
+│       ├── logging_config.py # Implement Phase 0 logging setup
+│       └── helpers.py        # Implement Phase 0 config loading
+│
+├── scripts/                  # Create files/structure for Phase 1 & 4
+│   ├── __init__.py
+│   ├── run_training.py           # Placeholder structure
+│   ├── run_evaluation.py         # Placeholder structure
+│   ├── generate_synthetic_data.py # Placeholder structure
+│   └── db_manage.py              # Placeholder structure (if needed for vector DB later)
+│
+├── deployment/               # Create files/structure for Phase 5
+│   ├── Dockerfile.api        # Placeholder content ok
+│   ├── Dockerfile.worker     # Placeholder content ok
+│   ├── docker-compose.yml    # Placeholder content ok
+│   ├── triton_repo/
+│   │   └── vqa_model/
+│   │       ├── 1/
+│   │       │   └── model.pt      # Placeholder
+│   │       └── config.pbtxt    # Placeholder
+│   └── monitoring/
+│       ├── prometheus/
+│       │   └── prometheus.yml  # Placeholder
+│       └── grafana/
+│           └── provisioning/
+│               ├── dashboards/ # Placeholder
+│               └── datasources/ # Placeholder
+│
+├── ar_frontend/              # Create files/structure for Phase 6
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   ├── hooks/
+│   │   ├── App.js            # Placeholder content ok
+│   │   └── index.js          # Placeholder content ok
+│   ├── package.json        # Basic placeholder
+│   └── README.md             # Basic placeholder (to be filled later)
+│
+└── tests/                    # Create structure for Phase 0 & beyond
+    ├── __init__.py
+    ├── api/                  # Add basic Phase 0 tests
+    ├── data_pipeline/
+    ├── knowledge/
+    ├── vlm/
+    └── test_utils.py
 ```
 
 ## Technology Stack
