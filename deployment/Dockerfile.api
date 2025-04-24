@@ -1,0 +1,36 @@
+# deployment/Dockerfile.api
+
+# --- Stage 1: Build dependencies ---
+FROM python:3.10-slim AS builder
+
+WORKDIR /app
+
+# Install system dependencies (if needed)
+RUN apt-get update && apt-get install -y --no-install-recommends gcc
+
+# Install Python dependencies in a virtual environment
+COPY requirements.txt .
+RUN python -m venv /venv && \
+    /venv/bin/pip install --upgrade pip && \
+    /venv/bin/pip install --no-cache-dir -r requirements.txt
+
+# --- Stage 2: Copy application code and set entrypoint ---
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Copy virtual environment from builder
+COPY --from=builder /venv /venv
+
+# Ensure venv Python is used
+ENV PATH="/venv/bin:$PATH"
+
+# Copy application code
+COPY src/ ./src/
+COPY config.yaml .
+
+# Expose FastAPI port
+EXPOSE 8000
+
+# Entrypoint: Run FastAPI app with Uvicorn
+CMD ["uvicorn", "src.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

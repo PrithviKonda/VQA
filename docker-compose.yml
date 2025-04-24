@@ -1,0 +1,61 @@
+# docker-compose.yml
+
+version: "3.8"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: deployment/Dockerfile.api
+    container_name: vqa_api
+    volumes:
+      - ./src:/app/src  # Optional: mount code for live reload during development
+      - ./config.yaml:/app/config.yaml
+    ports:
+      - "8000:8000"
+    environment:
+      - TRITON_SERVER_URL=http://triton:8000
+      - REDIS_URL=redis://redis:6379/0
+    depends_on:
+      - redis
+      - triton
+
+  redis:
+    image: redis:7
+    container_name: vqa_redis
+    ports:
+      - "6379:6379"
+
+  triton:
+    image: nvcr.io/nvidia/tritonserver:23.10-py3
+    container_name: vqa_triton
+    runtime: nvidia  # Uncomment if using GPU
+    environment:
+      - MODEL_REPOSITORY=/models
+    volumes:
+      - ./deployment/triton_repo:/models
+    ports:
+      - "8001:8001"  # gRPC
+      - "8000:8000"  # HTTP
+      - "8002:8002"  # Metrics (Prometheus)
+    command: ["tritonserver", "--model-repository=/models"]
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: vqa_prometheus
+    volumes:
+      - ./deployment/monitoring/prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: vqa_grafana
+    volumes:
+      - ./deployment/monitoring/grafana/provisioning/:/etc/grafana/provisioning/
+    ports:
+      - "3000:3000"
+
+networks:
+  default:
+    driver: bridge

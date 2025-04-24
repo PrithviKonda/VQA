@@ -8,6 +8,7 @@ torchvision
 torchaudio
 
 # --- Hugging Face Transformers and dependencies ---
+tritonclient[http]
 evaluate
 scikit-learn
 transformers

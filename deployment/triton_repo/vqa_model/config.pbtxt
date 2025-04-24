@@ -1,0 +1,29 @@
+# deployment/triton_repo/vqa_model/config.pbtxt
+
+name: "vqa_model"
+platform: "pytorch_libtorch"  # or "onnxruntime_onnx" if using ONNX
+max_batch_size: 8
+
+input [
+  {
+    name: "image"
+    data_type: TYPE_FP32
+    dims: [ 3, 224, 224 ]
+  },
+  {
+    name: "question"
+    data_type: TYPE_INT32
+    dims: [ -1 ]
+  }
+]
+
+output [
+  {
+    name: "answer"
+    data_type: TYPE_INT32
+    dims: [ -1 ]
+  }
+]
+
+# Optional: Enable dynamic batching
+dynamic_batching { }
