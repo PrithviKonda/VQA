@@ -11,6 +11,8 @@ from src.continuous_learning.feedback import FeedbackStore
 from src.api.dependencies import get_config
 from src.vlm.loading import load_vlm_model
 from src.vlm.inference import perform_vqa
+from src.knowledge.retriever import TextRetriever
+from src.knowledge.mrag import MRAGHandler
 
 from contextlib import asynccontextmanager
 
@@ -32,10 +34,18 @@ feedback_store = FeedbackStore()
 async def read_root():
     return {"message": "VQA System API is running."}
 
+from fastapi import Query
+
+# Instantiate retriever and handler (dummy index for now)
+retriever = TextRetriever()
+retriever.build_index(["Sample context about biology.", "Another fact about medicine."])
+mrag_handler = MRAGHandler(retriever)
+
 @app.post("/vqa/", response_model=VQAResponse, summary="Perform Visual Question Answering")
 async def run_vqa_endpoint(
     question: str = Form(..., description="The question to ask about the image."),
     image_file: UploadFile = File(..., description="The image file to analyze."),
+    use_rag: bool = Query(False, description="Enable Retrieval-Augmented Generation")
 ):
     if not image_file.content_type.startswith("image/"):
         raise HTTPException(status_code=400, detail=f"Invalid file type '{image_file.content_type}'. Please upload an image.")
@@ -47,7 +57,8 @@ async def run_vqa_endpoint(
     except Exception as e:
         raise HTTPException(status_code=400, detail=f"Could not read or process image file: {e}")
     try:
-        answer = perform_vqa(image, question)
+        prompt = mrag_handler.augment_prompt(question) if use_rag else question
+        answer = perform_vqa(image, prompt)
         return VQAResponse(question=question, filename=image_file.filename, answer=answer, model="phi-4-multimodal")
     except HTTPException as http_exc:
         raise http_exc

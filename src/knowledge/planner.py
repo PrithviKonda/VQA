@@ -25,6 +25,8 @@ class Planner:
         steps.append("generate_final_answer")
         return steps
 
+from typing import Any
+
 class AdaptivePlanner:
     """
     AdaptivePlanner for reasoning in VQA.

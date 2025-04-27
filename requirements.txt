@@ -25,3 +25,7 @@ openai
 anthropic
 biopython
 tqdm
+albumentations
+opencv-python-headless
+sentence-transformers
+faiss-cpu

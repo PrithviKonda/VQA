@@ -5,3 +5,6 @@
 {"question": "What is in the image?", "image_id": "test.jpg", "generated_answer": "A cat on a sofa.", "user_rating": 5, "user_comment": "Correct and clear answer."}
 {"question": "What is in the image?", "image_id": "test.jpg", "generated_answer": "A cat on a sofa.", "user_rating": 5, "user_comment": "Correct and clear answer."}
 {"question": "What is in the image?", "image_id": "sample.jpg", "generated_answer": "This is a mock VQA answer (model not loaded).", "user_rating": 5, "user_comment": "Correct and clear answer."}
+{"question": "What is in the image?", "image_id": "test.jpg", "generated_answer": "A cat on a sofa.", "user_rating": 5, "user_comment": "Correct and clear answer."}
+{"question": "What is in the image?", "image_id": "test.jpg", "generated_answer": "A cat on a sofa.", "user_rating": 5, "user_comment": "Correct and clear answer."}
+{"question": "What is in the image?", "image_id": "test.jpg", "generated_answer": "A cat on a sofa.", "user_rating": 5, "user_comment": "Correct and clear answer."}
