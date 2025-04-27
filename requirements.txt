@@ -17,3 +17,11 @@ sentencepiece
 
 # --- Other ---
 requests
+pytest
+pytest-cov
+requests-mock
+httpx
+pytest
+pytest-cov
+requests-mock
+httpx

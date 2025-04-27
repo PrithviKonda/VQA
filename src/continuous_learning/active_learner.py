@@ -7,6 +7,9 @@ import numpy as np
 
 class ActiveLearner:
     """
+    Active learning utility for uncertainty estimation and sample selection.
+    """
+    """
     Implements uncertainty-based sample selection for active learning.
     """
     def __init__(self):

@@ -10,6 +10,9 @@ FEEDBACK_FILE = Path(__file__).parent / "user_feedback.jsonl"
 
 class FeedbackStore:
     """
+    Handles feedback storage in JSONL format.
+    """
+    """
     Simple file-based feedback storage (JSONL).
     """
     def __init__(self, file_path: Optional[Path] = None):

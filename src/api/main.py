@@ -12,17 +12,21 @@ from src.api.dependencies import get_config
 from src.vlm.loading import load_vlm_model
 from src.vlm.inference import perform_vqa
 
+from contextlib import asynccontextmanager
+
+@asynccontextmanager
+async def lifespan(app):
+    load_vlm_model()
+    yield
+
 app = FastAPI(
     title="Advanced Multimodal VQA System API",
     description="API endpoint for the VQA system based on Phi-4 Multimodal.",
-    version="0.1.0"
+    version="0.1.0",
+    lifespan=lifespan
 )
 
 feedback_store = FeedbackStore()
-
-@app.on_event("startup")
-async def startup_event():
-    load_vlm_model()
 
 @app.get("/", summary="Root endpoint", description="Simple health check endpoint.")
 async def read_root():
@@ -56,7 +60,7 @@ async def submit_feedback(feedback: FeedbackRequest):
     Accepts user feedback for VQA answers and stores it.
     """
     try:
-        feedback_store.save_feedback(feedback.dict())
+        feedback_store.save_feedback(feedback.model_dump())
         return {"status": "success"}
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Could not save feedback: {e}")
