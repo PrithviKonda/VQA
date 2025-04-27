@@ -39,6 +39,17 @@ def main():
     print("Loading training dataset...")
     train_dataset = get_vqa_dataset(split="train", config=config)
 
+    # --- PHASE 6: Active Learning & Feedback Integration ---
+    # To incorporate active learning, you would load/select additional samples
+    # identified by the ActiveLearner as high-uncertainty from the unlabeled pool.
+    # To incorporate user feedback, you would parse feedback logs (e.g., user_feedback.jsonl)
+    # and add high-quality (rated/curated) feedback samples to train_dataset here.
+    # Example (pseudo-code):
+    # from src.continuous_learning.feedback import FEEDBACK_FILE
+    # feedback_samples = load_feedback_samples(FEEDBACK_FILE)
+    # train_dataset += feedback_samples
+    # ------------------------------------------------------
+
     # Load model and processor
     print("Loading model and processor...")
     model_obj, processor_obj = load_vlm_model()

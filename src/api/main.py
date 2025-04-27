@@ -6,7 +6,8 @@ import io
 from fastapi import FastAPI, File, UploadFile, Form, HTTPException
 from fastapi.responses import JSONResponse
 from PIL import Image
-from src.api.models import VQARequest, VQAResponse
+from src.api.models import VQARequest, VQAResponse, FeedbackRequest
+from src.continuous_learning.feedback import FeedbackStore
 from src.api.dependencies import get_config
 from src.vlm.loading import load_vlm_model
 from src.vlm.inference import perform_vqa
@@ -16,6 +17,8 @@ app = FastAPI(
     description="API endpoint for the VQA system based on Phi-4 Multimodal.",
     version="0.1.0"
 )
+
+feedback_store = FeedbackStore()
 
 @app.on_event("startup")
 async def startup_event():
@@ -46,3 +49,14 @@ async def run_vqa_endpoint(
         raise http_exc
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"An internal server error occurred: {e}")
+
+@app.post("/feedback", summary="Submit user feedback")
+async def submit_feedback(feedback: FeedbackRequest):
+    """
+    Accepts user feedback for VQA answers and stores it.
+    """
+    try:
+        feedback_store.save_feedback(feedback.dict())
+        return {"status": "success"}
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Could not save feedback: {e}")
